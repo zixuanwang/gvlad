@@ -1,0 +1,7 @@
+ADD_EXECUTABLE(compute_adaptation compute_adaptation.cpp)
+ADD_EXECUTABLE(compute_descriptor compute_descriptor.cpp)
+ADD_EXECUTABLE(compute_vocabulary compute_vocabulary.cpp)
+
+TARGET_LINK_LIBRARIES(compute_adaptation gvlad_lib)
+TARGET_LINK_LIBRARIES(compute_descriptor gvlad_lib)
+TARGET_LINK_LIBRARIES(compute_vocabulary gvlad_lib)
