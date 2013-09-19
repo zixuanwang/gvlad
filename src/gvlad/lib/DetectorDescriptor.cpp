@@ -26,7 +26,7 @@ void DetectorDescriptor::init(const std::string& detector_type,
 	m_descriptor_type = descriptor_type;
 	if (detector_type == "DENSE") {
 		m_detector = cv::Ptr<cv::FeatureDetector>(
-				new cv::DenseFeatureDetector(16.f, 1, 0.1f, 6, 0, true, false));
+				new cv::DenseFeatureDetector(32.f, 5, 1.414f, 16, 0, true, false));
 	}
 	if (detector_type == "SIFT" || detector_type == "SURF") {
 		m_detector = cv::FeatureDetector::create(detector_type);
