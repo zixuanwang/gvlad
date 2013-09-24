@@ -79,8 +79,6 @@ void Vocabulary::compute_vlad(std::vector<float>& vector,
 	}
 	// normalization
 	Math::power_normalize(vlad_mat);
-//	Math::row_normalize(vlad_mat);
-//	Math::z_normalize(vlad_mat);
 	// l2 normalization
 	cv::normalize(vlad_mat, vlad_mat);
 	vector.assign(vlad_mat.ptr<float>(0),

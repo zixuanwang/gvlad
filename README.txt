@@ -6,7 +6,7 @@
 ******************************************************************************
 
 ******************************************************************************
-*   Before compiling, make sure you have installed boost and opencv
+*   Before compiling, make sure you have installed boost, cmake and opencv
 ******************************************************************************
 
 ----------------------------------------------------------
@@ -36,3 +36,17 @@ Running the various programs:
 ----------------------------------------------------------
 * On Linux or Mac:	./bin/program_name
 * On Windows:		bin\Debug\program_name
+
+----------------------------------------------------------
+Example to use provided executables:
+----------------------------------------------------------
+Assume images are stored in folder ~/images
+1. Extract descriptors:
+./compute_descriptor -k SURF -d SURF -s 1024 ~/images ~/surf
+2. Compute vocabulary:
+./compute_vocabulary ~/surf 256 ~/vocabulary.xml
+3. Compute vocabulary adaptation:
+./compute_adaptation ~/vocabulary.xml ~/surf ~/adaptation.xml
+4. Compute gVLAD feature:
+./compute_gvlad ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
+

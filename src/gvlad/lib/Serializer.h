@@ -51,35 +51,46 @@ public:
 			out_stream.close();
 		}
 	}
+	template<class T> static void load_text(std::vector<T>& array,
+			const std::string& path) {
+		array.clear();
+		std::ifstream in_stream;
+		in_stream.open(path.c_str());
+		if (in_stream.good()) {
+			std::string line;
+			while (getline(in_stream, line)) {
+				boost::trim(line);
+				if (!line.empty()) {
+					array.push_back(boost::lexical_cast<T>(line));
+				}
+			}
+			in_stream.close();
+		}
+	}
+	template<class T> static void save_text(const std::vector<T>& array,
+			const std::string& path) {
+		if (array.empty()) {
+			return;
+		}
+		std::ofstream out_stream;
+		out_stream.open(path.c_str());
+		if (out_stream.good()) {
+			for (size_t i = 0; i < array.size(); ++i) {
+				out_stream << array[i] << "\n";
+			}
+			out_stream.close();
+		}
+	}
 };
 
 template<> inline void Serializer::load<std::string>(
 		std::vector<std::string>& array, const std::string& path) {
-	array.clear();
-	std::ifstream inStream;
-	inStream.open(path.c_str());
-	if (inStream.good()) {
-		std::string line;
-		while (getline(inStream, line)) {
-			array.push_back(line);
-		}
-		inStream.close();
-	}
+	load_text(array, path);
 }
 
 template<> inline void Serializer::save<std::string>(
 		const std::vector<std::string>& array, const std::string& path) {
-	if (array.empty()) {
-		return;
-	}
-	std::ofstream outStream;
-	outStream.open(path.c_str());
-	if (outStream.good()) {
-		for (size_t i = 0; i < array.size(); ++i) {
-			outStream << array[i] << std::endl;
-		}
-		outStream.close();
-	}
+	save_text(array, path);
 }
 
 #endif /* SERIALIZER_H_ */

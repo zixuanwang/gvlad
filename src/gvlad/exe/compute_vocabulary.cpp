@@ -13,9 +13,9 @@ int main(int argc, char* argv[]) {
 		std::cout
 				<< "Usage: ./compute_vocabulary descriptor_dir k vocabulary_path"
 				<< std::endl;
-		std::cout << "descriptor_dir is the directory contains image descriptors." << std::endl;
-		std::cout << "k is the number of desired visual words." << std::endl;
-		std::cout << "vocabulary_path is the output path of the vocabulary." << std::endl;
+		std::cout << "descriptor_dir : the directory contains image descriptors." << std::endl;
+		std::cout << "k : the number of desired visual words." << std::endl;
+		std::cout << "vocabulary_path : the output path of the vocabulary." << std::endl;
 		std::cout << "For example: ./compute_vocabulary ~/surf 256 ~/vocabulary.xml" << std::endl;
 		return 0;
 	}
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 		std::copy(sample_vector.begin(), sample_vector.end(),
 				sample_mat.ptr<float>(0));
 		std::vector<float>().swap(sample_vector);
-		std::cout << sample_count << " samples. run clustering..." << std::endl;
+		std::cout << sample_count << " descriptors. running clustering..." << std::endl;
 		Vocabulary::instance()->build(sample_mat, k);
 		Vocabulary::instance()->save(vocabulary_path);
 	}

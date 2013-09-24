@@ -47,9 +47,9 @@ int main(int argc, char* argv[]) {
 		std::cout
 				<< "Usage: ./compute_adaptation vocabulary_path descriptor_dir adaptation_path"
 				<< std::endl;
-		std::cout << "vocabulary_path is the xml file generated from compute_vocabulary." << std::endl;
-		std::cout << "descriptor_dir is the directory contains image descriptors." << std::endl;
-		std::cout << "adaptation_path is the path of the output xml file." << std::endl;
+		std::cout << "vocabulary_path : the xml file generated from compute_vocabulary." << std::endl;
+		std::cout << "descriptor_dir : the directory contains image descriptors." << std::endl;
+		std::cout << "adaptation_path : the path of the output xml file." << std::endl;
 		std::cout << "For example: ./compute_adaptation ~/vocabulary.xml ~/surf ~/adaptation.xml" << std::endl;
 		return 0;
 	}
