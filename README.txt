@@ -48,5 +48,5 @@ Assume images are stored in folder ~/images
 3. Compute vocabulary adaptation:
 ./compute_adaptation ~/vocabulary.xml ~/surf ~/adaptation.xml
 4. Compute gVLAD feature:
-./compute_gvlad ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
+./compute_gvlad -f 1 ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
 
