@@ -21,4 +21,4 @@ SET( EXECUTABLE_OUTPUT_PATH
 
 SUBDIRS(gvlad/lib)
 SUBDIRS(gvlad/exe)
-SUBDIRS(gvlad/server)
+#SUBDIRS(gvlad/server)

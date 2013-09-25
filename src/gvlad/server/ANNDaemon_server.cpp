@@ -51,11 +51,9 @@ public:
 			const int32_t k) {
 		std::vector<float> feature;
 		compute_feature(feature, image_path);
-		std::vector<float> compressed;
-		compress_feature(compressed, feature);
 		std::vector<std::string> label;
 		std::vector<float> distance;
-		compute_similar(label, distance, compressed, k);
+		compute_similar(label, distance, feature, k);
 		_return.reserve(k);
 		for (size_t i = 0; i < label.size(); ++i) {
 			Neighbor neighbor;
@@ -69,9 +67,7 @@ public:
 			const std::string& image_path, const int32_t k) {
 		std::vector<float> feature;
 		compute_feature(feature, image_path);
-		std::vector<float> compressed;
-		compress_feature(compressed, feature);
-		compute_similar(_return, compressed, k);
+		compute_similar(_return, feature, k);
 	}
 private:
 	class ParallelVerifier {
@@ -140,7 +136,7 @@ private:
 		Timer timer;
 		timer.start();
 		m_classifier.query(result, feature, k);
-		std::cout << "computing ann searching... (" << timer.stop() << " ms)"
+		std::cout << "computing nn searching... (" << timer.stop() << " ms)"
 				<< std::endl;
 	}
 	void compute_similar(std::vector<std::string>& result,
@@ -200,37 +196,24 @@ int main(int argc, char* argv[]) {
 	cv::initModule_nonfree();
 	Vocabulary::instance()->load(vocabulary);
 	Vocabulary::instance()->load_adaptation(adaptation);
-
-	if (argc >= 6) {
-		cv::initModule_nonfree();
-		Vocabulary::instance()->load(argv[3]);
-		Vocabulary::instance()->load_adaptation(argv[4]);
-		Compressor::instance()->load(argv[5]);
-		shared_ptr<TProtocolFactory> protocolFactory(
-				new TBinaryProtocolFactory());
-		shared_ptr<ANNDaemonHandler> handler;
-		if (argc == 7)
-			handler = shared_ptr<ANNDaemonHandler>(
-					new ANNDaemonHandler(argv[2], argv[6]));
-		if (argc == 6)
-			handler = shared_ptr<ANNDaemonHandler>(
-					new ANNDaemonHandler(argv[2]));
-		shared_ptr<TProcessor> processor(new ANNDaemonProcessor(handler));
-		shared_ptr<TServerTransport> serverTransport(
-				new TServerSocket(atoi(argv[1])));
-		shared_ptr<TTransportFactory> transportFactory(
-				new TBufferedTransportFactory());
-		shared_ptr<ThreadManager> threadManager =
-				ThreadManager::newSimpleThreadManager(10);
-		shared_ptr<PosixThreadFactory> threadFactory = shared_ptr<
-				PosixThreadFactory>(new PosixThreadFactory());
-		threadManager->threadFactory(threadFactory);
-		threadManager->start();
-		TThreadPoolServer server(processor, serverTransport, transportFactory,
-				protocolFactory, threadManager);
-		std::cout << "server is ready..." << std::endl;
-		server.serve();
-	}
+	shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+	shared_ptr<ANNDaemonHandler> handler;
+	handler = shared_ptr<ANNDaemonHandler>(
+			new ANNDaemonHandler(feature_dir, ann_search));
+	shared_ptr<TProcessor> processor(new ANNDaemonProcessor(handler));
+	shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+	shared_ptr<TTransportFactory> transportFactory(
+			new TBufferedTransportFactory());
+	shared_ptr<ThreadManager> threadManager =
+			ThreadManager::newSimpleThreadManager(10);
+	shared_ptr<PosixThreadFactory> threadFactory =
+			shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+	threadManager->threadFactory(threadFactory);
+	threadManager->start();
+	TThreadPoolServer server(processor, serverTransport, transportFactory,
+			protocolFactory, threadManager);
+	std::cout << "server is ready..." << std::endl;
+	server.serve();
 	return 0;
 }
 

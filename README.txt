@@ -33,6 +33,7 @@ Windows (MS Visual Studio):
 
 ----------------------------------------------------------
 Running the various programs:
+Help will be shown when you run each program without argument
 ----------------------------------------------------------
 * On Linux or Mac:	./bin/program_name
 * On Windows:		bin\Debug\program_name
@@ -49,4 +50,11 @@ Assume images are stored in folder ~/images
 ./compute_adaptation ~/vocabulary.xml ~/surf ~/adaptation.xml
 4. Compute gVLAD feature:
 ./compute_gvlad -f 1 ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
+5. Run image search server and client:
+5.1	Uncomment the following line in CMakeLists.txt
+	#SUBDIRS(gvlad/server) and compile again
+5.2	Run the server
+./ANNDaemon_server -a 0 9090 ~/vocabulary.xml ~/adaptation.xml ~/gvlad
+5.3 Run the client
+./ANNDaemon_client 9090 ~/query.jpg 50
 
