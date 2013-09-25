@@ -45,7 +45,7 @@ void compute_adaptation(size_t i) {
 int main(int argc, char* argv[]) {
 	if (argc == 1) {
 		std::cout
-				<< "Usage: ./compute_adaptation vocabulary_path descriptor_dir adaptation_path"
+				<< "Usage: compute_adaptation vocabulary_path descriptor_dir adaptation_path"
 				<< std::endl;
 		std::cout << "vocabulary_path : the xml file generated from compute_vocabulary." << std::endl;
 		std::cout << "descriptor_dir : the directory contains image descriptors." << std::endl;

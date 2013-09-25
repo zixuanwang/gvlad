@@ -84,6 +84,9 @@ void parse_command_line(int argc, char* argv[]) {
 			quiet_mode = true;
 			--i;
 			break;
+		default:
+			std::cerr << "Unknown option: " << argv[i - 1][1] << std::endl;
+			exit_with_help();
 		}
 	}
 	if (i >= argc - 1)

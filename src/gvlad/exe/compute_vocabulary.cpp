@@ -11,7 +11,7 @@
 int main(int argc, char* argv[]) {
 	if (argc == 1) {
 		std::cout
-				<< "Usage: ./compute_vocabulary descriptor_dir k vocabulary_path"
+				<< "Usage: compute_vocabulary descriptor_dir k vocabulary_path"
 				<< std::endl;
 		std::cout << "descriptor_dir : the directory contains image descriptors." << std::endl;
 		std::cout << "k : the number of desired visual words." << std::endl;
