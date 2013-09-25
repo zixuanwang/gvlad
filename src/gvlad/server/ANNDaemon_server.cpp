@@ -44,6 +44,7 @@ public:
 			Serializer::load(feature, file_vector[i]);
 			m_classifier.add_sample(feature, stem);
 		}
+		m_classifier.build();
 		DetectorDescriptor::instance()->init("SURF", "SURF");
 	}
 
