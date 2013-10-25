@@ -49,7 +49,7 @@ Assume images are stored in folder ~/images
 3. Compute vocabulary adaptation:
 ./compute_adaptation ~/vocabulary.xml ~/surf ~/adaptation.xml
 4. Compute gVLAD feature:
-./compute_gvlad -f 1 ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
+./compute_gvlad -f 0 ~/surf ~/vocabulary.xml ~/adaptation.xml ~/gvlad
 5. Run image search server and client:
 5.1	Uncomment the following line in CMakeLists.txt
 	#SUBDIRS(gvlad/server) and compile again

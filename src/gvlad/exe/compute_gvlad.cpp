@@ -44,6 +44,8 @@ void exit_with_help() {
 					"-f output format : set type of output features (default 0)\n"
 					"\t0 -- binary\t\t(binary format, compact to store)\n"
 					"\t1 -- text\t\t(text format, easy to read and debug)\n"
+					"-n -- number of angle bins (default 4)\n"
+					"-o -- angle offset (default 45)\n"
 					"-q : quiet mode (no console outputs)\n";
 	exit(1);
 }
@@ -58,6 +60,12 @@ void parse_command_line(int argc, char* argv[]) {
 		switch (argv[i - 1][1]) {
 		case 'f':
 			binary_format = atoi(argv[i]) == 0;
+			break;
+		case 'n':
+			GlobalConfig::angle_bins = atoi(argv[i]);
+			break;
+		case 'o':
+			GlobalConfig::angle_offset = atof(argv[i]);
 			break;
 		case 'q':
 			quiet_mode = true;
